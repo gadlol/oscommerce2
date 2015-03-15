@@ -88,8 +88,9 @@
 
 ////
 // The HTML image wrapper function
-  function tep_image($src, $alt = '', $width = '', $height = '', $parameters = '') {
-    $image = '<img src="' . tep_output_string($src) . '" border="0" alt="' . tep_output_string($alt) . '"';
+// added bootstrap classes for responsivness with ability to set class to false
+  function tep_image($src, $alt = '', $width = '', $height = '', $parameters = '', $responsive = false, $bootstrap_css = '') {
+    $image = '<img src="' . tep_output_string($src) . '" alt="' . tep_output_string($alt) . '"';
 
     if (tep_not_null($alt)) {
       $image .= ' title="' . tep_output_string($alt) . '"';
@@ -98,7 +99,16 @@
     if (tep_not_null($width) && tep_not_null($height)) {
       $image .= ' width="' . tep_output_string($width) . '" height="' . tep_output_string($height) . '"';
     }
+	
+    $image .= ' class="';
 
+    if (isset($responsive) && ($responsive === true)) {
+      $image .= 'img-responsive';
+    }
+
+    if (tep_not_null($bootstrap_css)) $image .= ' ' . $bootstrap_css;
+
+    $image .= '"';
     if (tep_not_null($parameters)) $image .= ' ' . $parameters;
 
     $image .= ' />';
@@ -194,7 +204,7 @@
 
 ////
 // Output a form input field
-  function tep_draw_input_field($name, $value = '', $parameters = '', $required = false, $type = 'text', $reinsert_value = true) {
+  function tep_draw_input_field($name, $value = '', $parameters = '', $type = 'text', $reinsert_value = true, $class = 'class="form-control"') {
 
     $field = '<input type="' . tep_output_string($type) . '" name="' . tep_output_string($name) . '"';
 
@@ -212,9 +222,10 @@
 
     if (tep_not_null($parameters)) $field .= ' ' . $parameters;
 
+    if (tep_not_null($class)) $field .= ' ' . $class;
     $field .= ' />';
 
-    if ($required == true) $field .= TEXT_FIELD_REQUIRED;
+//    if ($required == true) $field .= TEXT_FIELD_REQUIRED;
 
     return $field;
   }
@@ -222,19 +233,17 @@
 ////
 // Output a form password field
   function tep_draw_password_field($name, $value = '', $required = false) {
-    $field = tep_draw_input_field($name, $value, 'maxlength="40"', $required, 'password', false);
+    $field = tep_draw_input_field($name, $value, 'password', 'password');
 
     return $field;
   }
 
 ////
 // Output a form filefield
-  function tep_draw_file_field($name, $required = false) {
-    $field = tep_draw_input_field($name, '', '', $required, 'file');
-
-    return $field;
+  function tep_draw_file_field($name, $value = '', $parameters = '') {
+    return tep_draw_input_field($name, $value, '', 'file', false, $parameters);
   }
-
+  
 ////
 // Output a selection field - alias function for tep_draw_checkbox_field() and tep_draw_radio_field()
   function tep_draw_selection_field($name, $type, $value = '', $checked = false, $compare = '') {
@@ -267,9 +276,10 @@
 ////
 // Output a form textarea field
 // The $wrap parameter is no longer used in the core xhtml template
+// added form-control class for use with bootstrap
   function tep_draw_textarea_field($name, $wrap, $width, $height, $text = '', $parameters = '', $reinsert_value = true) {
 
-    $field = '<textarea name="' . tep_output_string($name) . '" cols="' . tep_output_string($width) . '" rows="' . tep_output_string($height) . '"';
+    $field = '<textarea class="form-control" name="' . tep_output_string($name) . '" cols="' . tep_output_string($width) . '" rows="' . tep_output_string($height) . '"';
 
     if (tep_not_null($parameters)) $field .= ' ' . $parameters;
 
@@ -333,7 +343,7 @@
 
     if (tep_not_null($parameters)) $field .= ' ' . $parameters;
 
-    $field .= '>';
+    $field .= ' class="form-control selectpicker show-tick selectwidthauto">';
 
     if (empty($default) && ( (isset($_GET[$name]) && is_string($_GET[$name])) || (isset($_POST[$name]) && is_string($_POST[$name])) ) ) {
       if (isset($_GET[$name]) && is_string($_GET[$name])) {
@@ -434,5 +444,136 @@
     $button_counter++;
 
     return $button;
+  }
+
+////
+// Output a glyphicon
+/* 
+EX: tep_glyphicon('ok => then any other class needed here', 'success', 'style="whatever needed"');
+Just choose the glyphicon name following "glyphicon-"; other classes such as pull-left, rotate etc; can be added after - choose from default bootstrap contextual helper classes for colors: muted, primary, success, info, warning, danger - leave blank to use same color as surrounding text (default);
+
+References: admin/ext/stylesheet.css - Bootsrap Glyphicon helpers section
+            http://getbootstrap.com/components/#glyphicons-glyphs
+			http://getbootstrap.com/css/#helper-classes-colors 
+*/
+  function tep_glyphicon($glyph, $color = '', $parameters = '') {
+    $icon = '';
+    $icon .= '<span class="glyphicon glyphicon-' . $glyph;
+    if (tep_not_null($color)) $icon .= ' text-' . $color;
+    $icon .= '"';
+    if (tep_not_null($parameters)) $icon .= ' ' . $parameters;
+    $icon .= '></span>&nbsp;';
+    
+    return $icon;  
+  }
+  
+////
+// Output a Bootstrap Button
+// took from the bootstrapped catalog side and removed priority and added parameters
+  function tep_draw_bs_button($title = null, $icon = null, $link = null, $parameters = null, $params = null, $style = null) {
+    static $button_counter = 1;
+
+    $types = array('submit', 'button', 'reset');
+
+    if ( !isset($params['type']) ) {
+      $params['type'] = 'submit';
+    }
+
+    if ( !in_array($params['type'], $types) ) {
+      $params['type'] = 'submit';
+    }
+
+    if ( ($params['type'] == 'submit') && isset($link) ) {
+      $params['type'] = 'button';
+    }
+
+    $button = NULL;
+
+    if ( ($params['type'] == 'button') && isset($link) ) {
+      $button .= '<a id="btn' . $button_counter . '" href="' . $link . '"';
+
+      if ( isset($params['newwindow']) ) {
+        $button .= ' target="_blank"';
+      }
+    } else {
+      $button .= '<button ';
+      $button .= ' type="' . tep_output_string($params['type']) . '"';
+    }
+
+    if ( isset($params['params']) ) {
+      $button .= ' ' . $params['params'];
+    }
+
+    $button .= ' class="btn ';
+
+    $button .= (isset($style)) ? $style : 'btn-default';
+
+    $button .= '"';
+	
+	$button .= (isset($parameters)) ?  ' ' . $parameters : '';
+	
+	$button .= '>';
+
+    if (isset($icon) && tep_not_null($icon)) {
+      $button .=  tep_glyphicon($icon);
+    }
+
+    $button .= $title;
+
+    if ( ($params['type'] == 'button') && isset($link) ) {
+      $button .= '</a>';
+    } else {
+      $button .= '</button>';
+    }
+
+    $button_counter++;
+
+    return $button;
+  } 
+////
+// review stars
+// took from the bootstraped catalog 
+  function tep_draw_stars($rating = 0) {
+    $stars =  str_repeat(tep_glyphicon('star','info'), (int)$rating);
+    $stars .= str_repeat(tep_glyphicon('star-empty','muted'), 5-(int)$rating);
+    return $stars;
+  }
+  
+////
+// Output a Bootstrap Glyphicon Button
+  function tep_glyphicon_button($title = null, $icon = null, $link = null, $style = null, $color = null, $size = null, $parameters = null) {
+
+    $glyphbtn = '';
+
+    if (isset($link) ) {
+      $glyphbtn .= '<a role="button" href="' . $link . '"';
+	  
+    } else {
+      $glyphbtn .= '<button type="button"';
+    }
+
+    $glyphbtn .= ' class="btn-glyphicon btn ';
+    
+    $glyphbtn .= (isset($style)) ? $style : 'btn-default ';
+	
+	$glyphbtn .= (isset($size)) ? $size : '';
+
+    $glyphbtn .= '"';
+	
+	if (tep_not_null($parameters)) $glyphbtn .= ' ' . $parameters;
+	
+	$glyphbtn .= ' title="' . $title . '"';
+	
+	$glyphbtn .= '>';
+
+    if (isset($icon) && tep_not_null($icon)) {
+      $glyphbtn .=  str_replace('&nbsp;', '', tep_glyphicon($icon,(isset($color)) ? $color : ''));
+    }
+    if (isset($link) ) {
+      $glyphbtn .= '</a>';
+    } else {
+      $glyphbtn .= '</button>';
+    }
+    return $glyphbtn;
   }
 ?>

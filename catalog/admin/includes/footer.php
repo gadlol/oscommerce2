@@ -10,9 +10,10 @@
   Released under the GNU General Public License
 */
 ?>
-<br />
-<table border="0" width="100%" cellspacing="0" cellpadding="2">
-  <tr>
-    <td align="center" class="smallText">osCommerce Online Merchant Copyright &copy; 2000-<?php echo date('Y'); ?> <a href="http://www.oscommerce.com" target="_blank">osCommerce</a> (<a href="http://www.oscommerce.com/Us&amp;Legal" target="_blank">Copyright and Trademark Policy</a>)</td>
-  </tr>
-</table>
+    <div id="footer" class="container hidden-xs">
+      <nav class="navbar navbar-default navbar-fixed-bottom">
+        <div style="text-align: center; padding-top: 10px;">
+          <p class="text-muted">osCommerce Online Merchant Copyright &copy; 2000-<?php echo date('Y'); ?> <a href="http://www.oscommerce.com" target="_blank">osCommerce</a> (<a href="http://www.oscommerce.com/Us&amp;Legal" target="_blank">Copyright and Trademark Policy</a>)</p>
+        </div>
+      </nav>
+    </div>

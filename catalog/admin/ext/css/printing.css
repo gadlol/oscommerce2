@@ -1,0 +1,69 @@
+/* Print Styles */
+
+@media print {
+
+#columeLeft {display:none;}
+#columeRight {display:none;}
+#bs-navbat-collapse-1 {display:none;}
+.navbar {display:none;}
+.logo {display:none;}
+.footer {display:none;}
+.footer-extra {display:none;}
+.breadcrumb {display:none;}
+.panel {display:none;}
+.panel.panel-default {display:none;}
+.buttonSet {display:none;}
+#buttonAction {display:none;}
+.searchbox-margin {display:none;}
+.header {display:none;}
+
+
+body {
+  margin:0;
+  padding:0;
+  line-height: 1.4em;
+  word-spacing:1px;
+  letter-spacing:0.2px;
+  font: 18px "Times New Roman", Times, serif;
+  background:white;
+  color:black;
+  width: 100%;
+  float: none;
+}
+
+h3 {
+  font: 28px "Times New Roman", Times, serif;
+}
+
+
+/* Improve colour contrast of links */
+a:link, a:visited {
+  color: #781351
+  }
+
+
+
+/* Show URL */
+a:link, a:visited {
+  background: transparent;
+  color:#333;
+  text-decoration:none;
+  }
+
+a:link[href^="http://"]:after, a[href^="http://"]:visited:after {
+  content: " (" attr(href) ") "; font-size: 11px;
+  }
+
+
+a[href^="http://"] {
+  color:#000;
+  }
+
+
+#header {
+  height:75px;
+  font-size: 24pt;
+  color:black
+  }
+
+}

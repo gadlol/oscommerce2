@@ -1,0 +1,19 @@
+/* ##############################################################################
+# Login  Page                                                                   #
+# #############################################################################*/
+#login {
+  padding: 20px;
+  border: 1px solid #CCC;
+  border-radius: 4px;
+  background-image: none;
+  background-image: -webkit-linear-gradient(top, rgb(238,238,238) 0%, rgb(204,204,204) 100%);
+  background-image: linear-gradient(to bottom, rgb(238,238,238) 0%, rgb(204,204,204) 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#eeeeee', endColorstr='#cccccc', GradientType=0 );
+  background-repeat: repeat-x;
+  -webkit-box-shadow: 0 1px 0 rgba(255, 255, 255, 1) inset;
+  box-shadow: 0 1px 0 rgba(255, 255, 255, 1) inset;
+}
+
+.page-header {
+  margin: 0px;
+}

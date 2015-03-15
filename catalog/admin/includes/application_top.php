@@ -190,6 +190,7 @@
   require(DIR_WS_CLASSES . 'box.php');
 
 // initialize the message stack for output messages
+  require(DIR_WS_CLASSES . 'alertbox.php');
   require(DIR_WS_CLASSES . 'message_stack.php');
   $messageStack = new messageStack;
 
@@ -223,6 +224,9 @@
   } else {
     $current_category_id = 0;
   }
+
+// initialize modules array
+  $templateModules = array();
 
 // initialize configuration modules
   require(DIR_WS_CLASSES . 'cfg_modules.php');

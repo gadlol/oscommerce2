@@ -23,7 +23,7 @@
   echo $box->infoBox($heading, $contents);
 */
 
-  class box extends tableBlock {
+  class oldbox extends tableBlock {
     function box() {
       $this->heading = array();
       $this->contents = array();
@@ -56,5 +56,32 @@
 
       return $this->heading . $this->contents;
     }
+  }
+
+  class box extends tableBlock {
+    var $_div_parameters = ' class="col-xs-12 col-sm-12 col-md-3 infoBox"';  //for bootstrap
+
+    function box() {
+      $this->heading = '';
+      $this->contents = '';
+    }
+
+    function infoBox($heading, $contents, $parameters = '') {
+      $this->fo_box = '      <div';
+      if (!empty($parameters)) {
+        $this->fo_box .= $parameters;
+      }
+      $this->fo_box .= $this->_div_parameters . '>' . "\n";
+      $this->table_row_parameters = 'class="infoBoxHeading"';
+      $this->table_data_parameters = 'class="infoBoxHeading"';
+      $this->heading = $this->tableBlock($heading);
+
+      $this->table_row_parameters = '';
+      $this->table_data_parameters = 'class="infoBoxContent"';
+      $this->contents = $this->tableBlock($contents);
+
+      return $this->fo_box . $this->heading . $this->contents . '      </div>';
+    }
+
   }
 ?>

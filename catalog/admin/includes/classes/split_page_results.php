@@ -54,19 +54,24 @@
       if ($num_pages > 1) {
         $display_links = tep_draw_form('pages', $PHP_SELF, '', 'get');
 
+        $display_links .= '<nav>' . "\n" .
+                          '  <ul class="pagination">' . "\n" .
+                          '    <li>';
         if ($current_page_number > 1) {
-          $display_links .= '<a href="' . tep_href_link($PHP_SELF, $parameters . $page_name . '=' . ($current_page_number - 1)) . '" class="splitPageLink">' . PREVNEXT_BUTTON_PREV . '</a>&nbsp;&nbsp;';
+          $display_links .= '<a href="' . tep_href_link($PHP_SELF, $parameters . $page_name . '=' . ($current_page_number - 1)) . '" class="splitPageLink"><i class="glyphicon glyphicon-backward"></i></a>&nbsp;&nbsp;';
         } else {
-          $display_links .= PREVNEXT_BUTTON_PREV . '&nbsp;&nbsp;';
+          $display_links .= '<span class="addon"><i class="glyphicon glyphicon-step-backward"></i></span>';
         }
 
-        $display_links .= sprintf(TEXT_RESULT_PAGE, tep_draw_pull_down_menu($page_name, $pages_array, $current_page_number, 'onchange="this.form.submit();"'), $num_pages);
+        $display_links .= '</li>';
 
+        $display_links .= '    <li>';
         if (($current_page_number < $num_pages) && ($num_pages != 1)) {
-          $display_links .= '&nbsp;&nbsp;<a href="' . tep_href_link($PHP_SELF, $parameters . $page_name . '=' . ($current_page_number + 1)) . '" class="splitPageLink">' . PREVNEXT_BUTTON_NEXT . '</a>';
+          $display_links .= '&nbsp;&nbsp;<a href="' . tep_href_link($PHP_SELF, $parameters . $page_name . '=' . ($current_page_number + 1)) . '" class="splitPageLink"><i class="glyphicon glyphicon-forward"></i></a>';
         } else {
-          $display_links .= '&nbsp;&nbsp;' . PREVNEXT_BUTTON_NEXT;
+          $display_links .= '<span class="addon"><i class="glyphicon glyphicon-step-forward"></i></span>';
         }
+        $display_links .= '</li>';
 
         if ($parameters != '') {
           if (substr($parameters, -1) == '&') $parameters = substr($parameters, 0, -1);
@@ -76,6 +81,13 @@
             $display_links .= tep_draw_hidden_field(rawurldecode($key), rawurldecode($value));
           }
         }
+
+        $display_links .= '  </ul>' . "\n";
+        $display_links .= '<span style="float: right;">' . "\n";
+
+        $display_links .= sprintf(TEXT_RESULT_PAGE, tep_draw_pull_down_menu($page_name, $pages_array, $current_page_number, 'onchange="this.form.submit();" style="width:auto !important;"'), $num_pages);
+        $display_links .= '</span>' . "\n" .
+                          '</nav>' . "\n";
 
         $display_links .= tep_hide_session_id() . '</form>';
       } else {
