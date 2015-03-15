@@ -30,13 +30,15 @@
     function getOutput() {
       global $languages_id;
 
-      $output = '<table border="0" width="100%" cellspacing="0" cellpadding="4">' .
+      $output = '<table class="table table-bordered table-hover" style="width: 100%; padding: 4px;">' .
+                '  <thead>' .
                 '  <tr class="dataTableHeadingRow">' .
-                '    <td class="dataTableHeadingContent">' . MODULE_ADMIN_DASHBOARD_ORDERS_TITLE . '</td>' .
-                '    <td class="dataTableHeadingContent">' . MODULE_ADMIN_DASHBOARD_ORDERS_TOTAL . '</td>' .
-                '    <td class="dataTableHeadingContent">' . MODULE_ADMIN_DASHBOARD_ORDERS_DATE . '</td>' .
-                '    <td class="dataTableHeadingContent">' . MODULE_ADMIN_DASHBOARD_ORDERS_ORDER_STATUS . '</td>' .
-                '  </tr>';
+                '    <th class="dataTableHeadingContent">' . MODULE_ADMIN_DASHBOARD_ORDERS_TITLE . '</th>' .
+                '    <th class="dataTableHeadingContent">' . MODULE_ADMIN_DASHBOARD_ORDERS_TOTAL . '</th>' .
+                '    <th class="dataTableHeadingContent">' . MODULE_ADMIN_DASHBOARD_ORDERS_DATE . '</th>' .
+                '    <th class="dataTableHeadingContent">' . MODULE_ADMIN_DASHBOARD_ORDERS_ORDER_STATUS . '</th>' .
+                '  </tr>' .
+                '  </thead>';
 
       $orders_query = tep_db_query("select o.orders_id, o.customers_name, greatest(o.date_purchased, ifnull(o.last_modified, 0)) as date_last_modified, s.orders_status_name, ot.text as order_total from " . TABLE_ORDERS . " o, " . TABLE_ORDERS_TOTAL . " ot, " . TABLE_ORDERS_STATUS . " s where o.orders_id = ot.orders_id and ot.class = 'ot_total' and o.orders_status = s.orders_status_id and s.language_id = '" . (int)$languages_id . "' order by date_last_modified desc limit 6");
       while ($orders = tep_db_fetch_array($orders_query)) {

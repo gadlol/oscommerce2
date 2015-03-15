@@ -38,17 +38,19 @@
       $rss->cache_time = 86400;
       $feed = $rss->get('http://feeds.feedburner.com/osCommerceNewsAndBlogs');
 
-      $output = '<table border="0" width="100%" cellspacing="0" cellpadding="4">' .
+      $output = '<table class="table table-bordered table-hover" style="width: 100%; padding: 4px;">' .
+                '  <thead>' .
                 '  <tr class="dataTableHeadingRow">' .
-                '    <td class="dataTableHeadingContent">' . MODULE_ADMIN_DASHBOARD_LATEST_NEWS_TITLE . '</td>' .
-                '    <td class="dataTableHeadingContent" align="right">' . MODULE_ADMIN_DASHBOARD_LATEST_NEWS_DATE . '</td>' .
-                '  </tr>';
+                '    <th class="dataTableHeadingContent">' . MODULE_ADMIN_DASHBOARD_LATEST_NEWS_TITLE . '</th>' .
+                '    <th class="dataTableHeadingContent" style="text-align: right;">' . MODULE_ADMIN_DASHBOARD_LATEST_NEWS_DATE . '</th>' .
+                '  </tr>' .
+                '  </thead>';
 
       if (is_array($feed) && !empty($feed)) {
         foreach ($feed['items'] as $item) {
           $output .= '  <tr class="dataTableRow" onmouseover="rowOverEffect(this);" onmouseout="rowOutEffect(this);">' .
                      '    <td class="dataTableContent"><a href="' . $item['link'] . '" target="_blank">' . $item['title'] . '</a></td>' .
-                     '    <td class="dataTableContent" align="right" style="white-space: nowrap;">' . date("F j, Y", strtotime($item['pubDate'])) . '</td>' .
+                     '    <td class="dataTableContent" style="text-align: right; white-space: nowrap;">' . date("F j, Y", strtotime($item['pubDate'])) . '</td>' .
                      '  </tr>';
         }
       } else {
@@ -58,7 +60,7 @@
       }
 
       $output .= '  <tr class="dataTableRow">' .
-                 '    <td class="dataTableContent" align="right" colspan="2"><a href="http://www.oscommerce.com/Us&News" target="_blank">' . tep_image(DIR_WS_IMAGES . 'icon_oscommerce.png', MODULE_ADMIN_DASHBOARD_LATEST_NEWS_ICON_NEWS) . '</a>&nbsp;<a href="http://www.oscommerce.com/newsletter/subscribe" target="_blank">' . tep_image(DIR_WS_IMAGES . 'icon_newsletter.png', MODULE_ADMIN_DASHBOARD_LATEST_NEWS_ICON_NEWSLETTER) . '</a>&nbsp;<a href="http://plus.google.com/+osCommerce" target="_blank">' . tep_image(DIR_WS_IMAGES . 'icon_google_plus.png', MODULE_ADMIN_DASHBOARD_LATEST_NEWS_ICON_GOOGLE_PLUS) . '</a>&nbsp;<a href="http://www.facebook.com/pages/osCommerce/33387373079" target="_blank">' . tep_image(DIR_WS_IMAGES . 'icon_facebook.png', MODULE_ADMIN_DASHBOARD_LATEST_NEWS_ICON_FACEBOOK) . '</a>&nbsp;<a href="http://twitter.com/osCommerce" target="_blank">' . tep_image(DIR_WS_IMAGES . 'icon_twitter.png', MODULE_ADMIN_DASHBOARD_LATEST_NEWS_ICON_TWITTER) . '</a>&nbsp;<a href="http://feeds.feedburner.com/osCommerceNewsAndBlogs" target="_blank">' . tep_image(DIR_WS_IMAGES . 'icon_rss.png', MODULE_ADMIN_DASHBOARD_LATEST_NEWS_ICON_RSS) . '</a></td>' .
+                 '    <td class="dataTableContent" style="text-align: right;" colspan="2"><a href="http://www.oscommerce.com/Us&News" target="_blank">' . tep_image(DIR_WS_IMAGES . 'icon_oscommerce.png', MODULE_ADMIN_DASHBOARD_LATEST_NEWS_ICON_NEWS) . '</a>&nbsp;<a href="http://www.oscommerce.com/newsletter/subscribe" target="_blank">' . tep_image(DIR_WS_IMAGES . 'icon_newsletter.png', MODULE_ADMIN_DASHBOARD_LATEST_NEWS_ICON_NEWSLETTER) . '</a>&nbsp;<a href="http://plus.google.com/+osCommerce" target="_blank">' . tep_image(DIR_WS_IMAGES . 'icon_google_plus.png', MODULE_ADMIN_DASHBOARD_LATEST_NEWS_ICON_GOOGLE_PLUS) . '</a>&nbsp;<a href="http://www.facebook.com/pages/osCommerce/33387373079" target="_blank">' . tep_image(DIR_WS_IMAGES . 'icon_facebook.png', MODULE_ADMIN_DASHBOARD_LATEST_NEWS_ICON_FACEBOOK) . '</a>&nbsp;<a href="http://twitter.com/osCommerce" target="_blank">' . tep_image(DIR_WS_IMAGES . 'icon_twitter.png', MODULE_ADMIN_DASHBOARD_LATEST_NEWS_ICON_TWITTER) . '</a>&nbsp;<a href="http://feeds.feedburner.com/osCommerceNewsAndBlogs" target="_blank">' . tep_image(DIR_WS_IMAGES . 'icon_rss.png', MODULE_ADMIN_DASHBOARD_LATEST_NEWS_ICON_RSS) . '</a></td>' .
                  '  </tr>' .
                  '</table>';
 

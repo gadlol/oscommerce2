@@ -39,10 +39,12 @@
       $output = null;
 
       if (is_array($result) && !empty($result)) {
-        $output = '<table border="0" width="100%" cellspacing="0" cellpadding="4">' .
+        $output = '<table class="table table-bordered table-hover" style="width: 100%; padding: 4px;">' .
+                  '  <thead>' .
                   '  <tr class="dataTableHeadingRow">' .
-                  '    <td class="dataTableHeadingContent">' . MODULE_ADMIN_DASHBOARD_PARTNER_NEWS_TITLE . '</td>' .
-                  '  </tr>';
+                  '    <th class="dataTableHeadingContent">' . MODULE_ADMIN_DASHBOARD_PARTNER_NEWS_TITLE . '</th>' .
+                '  </tr>' .
+                '  </thead>';
 
         foreach ($result as $p) {
           $output .= '  <tr class="dataTableRow" onmouseover="rowOverEffect(this);" onmouseout="rowOutEffect(this);">' .
@@ -51,7 +53,7 @@
         }
 
         $output .= '  <tr class="dataTableRow">' .
-                   '    <td class="dataTableContent" align="right" colspan="2"><a href="http://www.oscommerce.com/Services" target="_blank">' . MODULE_ADMIN_DASHBOARD_PARTNER_NEWS_MORE_TITLE . '</a></td>' .
+                   '    <td class="dataTableContent" style="text-align: right;" colspan="2"><a href="http://www.oscommerce.com/Services" target="_blank">' . MODULE_ADMIN_DASHBOARD_PARTNER_NEWS_MORE_TITLE . '</a></td>' .
                    '  </tr>' .
                    '</table>';
       }

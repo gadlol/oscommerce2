@@ -49,11 +49,13 @@
         $date_last_checked = MODULE_ADMIN_DASHBOARD_VERSION_CHECK_NEVER;
       }
 
-      $output = '<table border="0" width="100%" cellspacing="0" cellpadding="4">' .
+      $output = '<table class="table table-bordered table-hover" style="width:100%; padding: 4px;">' .
+                '  <thead>' .
                 '  <tr class="dataTableHeadingRow">' .
-                '    <td class="dataTableHeadingContent">' . MODULE_ADMIN_DASHBOARD_VERSION_CHECK_TITLE . '</td>' .
-                '    <td class="dataTableHeadingContent" align="right">' . MODULE_ADMIN_DASHBOARD_VERSION_CHECK_DATE . '</td>' .
-                '  </tr>';
+                '    <th class="dataTableHeadingContent">' . MODULE_ADMIN_DASHBOARD_VERSION_CHECK_TITLE . '</th>' .
+                '    <th class="dataTableHeadingContent" style="text-align: right;">' . MODULE_ADMIN_DASHBOARD_VERSION_CHECK_DATE . '</th>' .
+                '  </tr>' .
+                '  </thead>';
 
       if ($new_version == true) {
         $output .= '  <tr>' .
@@ -63,7 +65,7 @@
 
       $output .= '  <tr class="dataTableRow" onmouseover="rowOverEffect(this);" onmouseout="rowOutEffect(this);">' .
                  '    <td class="dataTableContent"><a href="' . tep_href_link(FILENAME_VERSION_CHECK) . '">' . MODULE_ADMIN_DASHBOARD_VERSION_CHECK_CHECK_NOW . '</a></td>' .
-                 '    <td class="dataTableContent" align="right">' . $date_last_checked . '</td>' .
+                 '    <td class="dataTableContent" style="text-align: right;">' . $date_last_checked . '</td>' .
                  '  </tr>' .
                  '</table>';
 

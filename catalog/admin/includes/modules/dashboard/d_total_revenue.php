@@ -28,6 +28,7 @@
     }
 
     function getOutput() {
+      global $templateModules;
       $days = array();
       for($i = 0; $i < 30; $i++) {
         $days[date('Y-m-d', strtotime('-'. $i .' days'))] = 0;
@@ -54,6 +55,8 @@
 
       $output = <<<EOD
 <div id="d_total_revenue" style="width: 100%; height: 150px;"></div>
+EOD;
+      $templateModules['footer'][] = <<<EOD
 <script type="text/javascript">
 $(function () {
   var plot30 = [$js_array];

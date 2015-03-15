@@ -67,7 +67,7 @@
       }
 
       if (isset($secCheck_messages['error'])) {
-        $output .= '<div class="secError">';
+        $output .= '<div class="bg-warning">';
 
         foreach ($secCheck_messages['error'] as $error) {
           $output .= '<p class="smallText">' . $error . '</p>';
@@ -77,7 +77,7 @@
       }
 
       if (isset($secCheck_messages['warning'])) {
-        $output .= '<div class="secWarning">';
+        $output .= '<div class="bg-danger">';
 
         foreach ($secCheck_messages['warning'] as $warning) {
           $output .= '<p class="smallText">' . $warning . '</p>';
@@ -87,7 +87,7 @@
       }
 
       if (isset($secCheck_messages['info'])) {
-        $output .= '<div class="secInfo">';
+        $output .= '<div class="bg-info">';
 
         foreach ($secCheck_messages['info'] as $info) {
           $output .= '<p class="smallText">' . $info . '</p>';
@@ -97,7 +97,7 @@
       }
 
       if (empty($secCheck_messages)) {
-        $output .= '<div class="secSuccess"><p class="smallText">' . MODULE_ADMIN_DASHBOARD_SECURITY_CHECKS_SUCCESS . '</p></div>';
+        $output .= '<div class="bg-succes"><p class="smallText">' . MODULE_ADMIN_DASHBOARD_SECURITY_CHECKS_SUCCESS . '</p></div>';
       }
 
       return $output;
