@@ -12,6 +12,11 @@
 
   require('includes/application_top.php');
 
+  $templateModules['footer_script'][] = 
+'<!--[if IE]><script type="text/javascript" src="' . tep_catalog_href_link('ext/flot/excanvas.min.js', '', 'SSL') . '"></script><![endif]-->
+<script type="text/javascript" src="' . tep_catalog_href_link('ext/flot/jquery.flot.min.js', '', 'SSL') . '"></script>
+<script type="text/javascript" src="' . tep_catalog_href_link('ext/flot/jquery.flot.time.min.js', '', 'SSL') . '"></script>';
+
   $languages = tep_get_languages();
   $languages_array = array();
   $languages_selected = DEFAULT_LANGUAGE;
@@ -26,28 +31,18 @@
   require(DIR_WS_INCLUDES . 'template_top.php');
 ?>
 
-    <table border="0" width="100%" cellspacing="0" cellpadding="2">
-      <tr>
-        <td><table border="0" width="100%" cellspacing="0" cellpadding="2" height="40">
-          <tr>
-            <td class="pageHeading"><?php echo STORE_NAME; ?></td>
+      <div class="pageHeading col-md-4 col-sm-4">
+        <h1><?php echo STORE_NAME; ?></h1>
+      </div>
 
 <?php
   if (sizeof($languages_array) > 1) {
 ?>
-
-            <td class="pageHeading" align="right"><?php echo tep_draw_form('adminlanguage', FILENAME_DEFAULT, '', 'get') . tep_draw_pull_down_menu('language', $languages_array, $languages_selected, 'onchange="this.form.submit();"') . tep_hide_session_id() . '</form>'; ?></td>
+      <div class="col-md-2 col-md-offset-6 col-sm-2 col-sm-offset-5"><?php echo tep_draw_form('adminlanguage', FILENAME_DEFAULT, '', 'get') . tep_draw_pull_down_menu('language', $languages_array, $languages_selected, 'onchange="this.form.submit();"') . tep_hide_session_id() . '</form>'; ?></div>
 
 <?php
   }
-?>
 
-          </tr>
-        </table></td>
-      </tr>
-      <tr>
-        <td><table border="0" width="100%" cellspacing="0" cellpadding="2">
-<?php
   if ( defined('MODULE_ADMIN_DASHBOARD_INSTALLED') && tep_not_null(MODULE_ADMIN_DASHBOARD_INSTALLED) ) {
     $adm_array = explode(';', MODULE_ADMIN_DASHBOARD_INSTALLED);
 
@@ -67,39 +62,34 @@
 
       if ( $ad->isEnabled() ) {
         if ($col < 1) {
-          echo '          <tr>' . "\n";
+          echo '          <div class="col-xs-12">' . "\n";
         }
 
         $col++;
 
         if ($col <= 2) {
-          echo '            <td width="50%" valign="top">' . "\n";
+          echo '            <div class="col-xs-12 col-md-6">' . "\n";
         }
 
         echo $ad->getOutput();
 
         if ($col <= 2) {
-          echo '            </td>' . "\n";
+          echo '            </div>' . "\n";
         }
 
         if ( !isset($adm_array[$i+1]) || ($col == 2) ) {
           if ( !isset($adm_array[$i+1]) && ($col == 1) ) {
-            echo '            <td width="50%" valign="top">&nbsp;</td>' . "\n";
+            echo '            <div class="col-xs-12 col-md-6">&nbsp;</div>' . "\n";
           }
 
           $col = 0;
 
-          echo '  </tr>' . "\n";
+          echo '  </div>' . "\n";
         }
       }
     }
   }
-?>
-        </table></td>
-      </tr>
-    </table>
 
-<?php
   require(DIR_WS_INCLUDES . 'template_bottom.php');
   require(DIR_WS_INCLUDES . 'application_bottom.php');
 ?>

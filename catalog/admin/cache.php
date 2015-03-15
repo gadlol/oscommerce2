@@ -32,24 +32,19 @@
   require(DIR_WS_INCLUDES . 'template_top.php');
 ?>
 
-    <table border="0" width="100%" cellspacing="0" cellpadding="2">
-      <tr>
-        <td><table border="0" width="100%" cellspacing="0" cellpadding="0">
-          <tr>
-            <td class="pageHeading"><?php echo HEADING_TITLE; ?></td>
-            <td class="pageHeading" align="right"><?php echo tep_draw_separator('pixel_trans.gif', HEADING_IMAGE_WIDTH, HEADING_IMAGE_HEIGHT); ?></td>
-          </tr>
-        </table></td>
-      </tr>
-      <tr>
-        <td><table border="0" width="100%" cellspacing="0" cellpadding="0">
-          <tr>
-            <td valign="top"><table border="0" width="100%" cellspacing="0" cellpadding="2">
-              <tr class="dataTableHeadingRow">
-                <td class="dataTableHeadingContent"><?php echo TABLE_HEADING_CACHE; ?></td>
-                <td class="dataTableHeadingContent" align="right"><?php echo TABLE_HEADING_DATE_CREATED; ?></td>
-                <td class="dataTableHeadingContent" align="right"><?php echo TABLE_HEADING_ACTION; ?>&nbsp;</td>
-              </tr>
+      <div class="pageHeading col-xs-12">
+        <h1><?php echo HEADING_TITLE; ?></h1>
+      </div>
+      <div class="col-xs-12">
+        <table class="table table-hover table-bordered">
+          <thead>
+            <tr class="dataTableHeadingRow">
+              <th class="dataTableHeadingContent"><?php echo TABLE_HEADING_CACHE; ?></th>
+              <th class="dataTableHeadingContent" style="text-align: right;"><?php echo TABLE_HEADING_DATE_CREATED; ?></th>
+              <th class="dataTableHeadingContent" style="text-align: right;"><?php echo TABLE_HEADING_ACTION; ?>&nbsp;</th>
+            </tr>
+          </thead>
+          <tbody>
 <?php
   if ($messageStack->size < 1) {
     $languages = tep_get_languages();
@@ -81,23 +76,23 @@
         $dir->close();
       }
 ?>
-              <tr class="dataTableRow" onmouseover="rowOverEffect(this)" onmouseout="rowOutEffect(this)">
-                <td class="dataTableContent"><?php echo $cache_blocks[$i]['title']; ?></td>
-                <td class="dataTableContent" align="right"><?php echo $cache_mtime; ?></td>
-                <td class="dataTableContent" align="right"><?php echo '<a href="' . tep_href_link(FILENAME_CACHE, 'action=reset&block=' . $cache_blocks[$i]['code']) . '">' . tep_image(DIR_WS_IMAGES . 'icon_reset.gif', 'Reset', 13, 13) . '</a>'; ?>&nbsp;</td>
-              </tr>
+            <tr class="dataTableRow" onmouseover="rowOverEffect(this)" onmouseout="rowOutEffect(this)">
+              <td class="dataTableContent"><?php echo $cache_blocks[$i]['title']; ?></td>
+              <td class="dataTableContent" style="text-align: right;"><?php echo $cache_mtime; ?></td>
+              <td class="dataTableContent" style="text-align: right;"><?php echo '<a href="' . tep_href_link(FILENAME_CACHE, 'action=reset&block=' . $cache_blocks[$i]['code']) . '">' . tep_glyphicon('refresh') . '</a>'; ?>&nbsp;</td>
+            </tr>
 <?php
     }
   }
 ?>
-              <tr>
-                <td class="smallText" colspan="3"><?php echo TEXT_CACHE_DIRECTORY . ' ' . DIR_FS_CACHE; ?></td>
-              </tr>
-            </table></td>
+          </tbody>
+        </table>
+        <table class="table" width="100%"> <!-- osCommerce table foot -->
+          <tr>
+            <td class="smallText bg-info" colspan="3"><?php echo TEXT_CACHE_DIRECTORY . ' ' . DIR_FS_CACHE; ?></td>
           </tr>
-        </table></td>
-      </tr>
-    </table>
+        </table>
+      </div>
 
 <?php
   require(DIR_WS_INCLUDES . 'template_bottom.php');

@@ -61,18 +61,22 @@
   require(DIR_WS_INCLUDES . 'template_top.php');
 ?>
 
-<div style="float: right;"><?php echo tep_draw_button('Reload', 'arrowrefresh-1-e', tep_href_link('security_checks.php')); ?></div>
-
-<h1 class="pageHeading"><?php echo HEADING_TITLE; ?></h1>
-
-<table border="0" width="100%" cellspacing="0" cellpadding="2">
-  <tr class="dataTableHeadingRow">
-    <td class="dataTableHeadingContent" width="20">&nbsp;</td>
-    <td class="dataTableHeadingContent"><?php echo TABLE_HEADING_TITLE; ?></td>
-    <td class="dataTableHeadingContent"><?php echo TABLE_HEADING_MODULE; ?></td>
-    <td class="dataTableHeadingContent"><?php echo TABLE_HEADING_INFO; ?></td>
-    <td class="dataTableHeadingContent" width="20" align="right">&nbsp;</td>
-  </tr>
+      <div class="pageHeading col-md-4 col-sm-4">
+        <h1><?php echo HEADING_TITLE; ?></h1>
+      </div>
+      <div class="col-md-2 col-md-offset-6 col-sm-2 col-sm-offset-5"><?php echo tep_draw_bs_button('Reload', 'arrowrefresh-1-e', tep_href_link('security_checks.php')); ?></div>
+      <div class="col-xs-12">
+        <table class="table table-hover table-bordered">
+          <thead>
+            <tr class="dataTableHeadingRow">
+              <th class="dataTableHeadingContent" width="20">&nbsp;</th>
+              <th class="dataTableHeadingContent"><?php echo TABLE_HEADING_TITLE; ?></th>
+              <th class="dataTableHeadingContent"><?php echo TABLE_HEADING_MODULE; ?></th>
+              <th class="dataTableHeadingContent"><?php echo TABLE_HEADING_INFO; ?></th>
+              <th class="dataTableHeadingContent" width="40" style="text-align: right;">&nbsp;</th>
+            </tr>
+          </thead>
+          <tbody>
 
 <?php
   foreach ($modules as $module) {
@@ -91,16 +95,17 @@
     }
 
     echo '  <tr class="dataTableRow" onmouseover="rowOverEffect(this)" onmouseout="rowOutEffect(this)">' . "\n" .
-         '    <td class="dataTableContent" align="center" valign="top">' . tep_image(DIR_WS_IMAGES . 'ms_' . $secCheck->type . '.png', '', 16, 16) . '</td>' . "\n" .
+         '    <td class="dataTableContent" style="text-align: center;" valign="top">' . tep_image(DIR_WS_IMAGES . 'ms_' . $secCheck->type . '.png', '', 16, 16) . '</td>' . "\n" .
          '    <td class="dataTableContent" valign="top" style="white-space: nowrap;">' . tep_output_string_protected($module['title']) . '</td>' . "\n" .
          '    <td class="dataTableContent" valign="top">' . tep_output_string_protected($module['code']) . '</td>' . "\n" .
          '    <td class="dataTableContent" valign="top">' . $output . '</td>' . "\n" .
-         '    <td class="dataTableContent" align="center" valign="top">' . ((isset($secCheck->has_doc) && $secCheck->has_doc) ? '<a href="http://library.oscommerce.com/Wiki&oscom_2_3&security_checks&' . $module['code'] . '" target="_blank">' . tep_image(DIR_WS_IMAGES . 'icons/preview.gif') . '</a>' : '') . '</td>' . "\n" .
+         '    <td class="dataTableContent" style="text-align: center;" valign="top">' . ((isset($secCheck->has_doc) && $secCheck->has_doc) ? '<a href="http://library.oscommerce.com/Wiki&oscom_2_3&security_checks&' . $module['code'] . '" target="_blank">' . tep_glyphicon('eye-open') . '</a>' : '') . '</td>' . "\n" .
          '  </tr>' . "\n";
   }
 ?>
-
-</table>
+          </tbody>
+        </table>
+      </div>
 
 <?php
   require(DIR_WS_INCLUDES . 'template_bottom.php');

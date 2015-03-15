@@ -23,28 +23,23 @@
   require(DIR_WS_INCLUDES . 'template_top.php');
 ?>
 
-    <table border="0" width="100%" cellspacing="0" cellpadding="2">
-      <tr>
-        <td><table border="0" width="100%" cellspacing="0" cellpadding="0">
-          <tr>
-            <td class="pageHeading"><?php echo HEADING_TITLE; ?></td>
-            <td class="pageHeading" align="right"><?php echo tep_draw_separator('pixel_trans.gif', HEADING_IMAGE_WIDTH, HEADING_IMAGE_HEIGHT); ?></td>
-          </tr>
-        </table></td>
-      </tr>
-      <tr>
-        <td><table border="0" width="100%" cellspacing="0" cellpadding="0">
-          <tr>
-            <td valign="top"><table border="0" width="100%" cellspacing="0" cellpadding="2">
-              <tr class="dataTableHeadingRow">
-                <td class="dataTableHeadingContent"><?php echo TABLE_HEADING_ONLINE; ?></td>
-                <td class="dataTableHeadingContent" align="center"><?php echo TABLE_HEADING_CUSTOMER_ID; ?></td>
-                <td class="dataTableHeadingContent"><?php echo TABLE_HEADING_FULL_NAME; ?></td>
-                <td class="dataTableHeadingContent" align="center"><?php echo TABLE_HEADING_IP_ADDRESS; ?></td>
-                <td class="dataTableHeadingContent"><?php echo TABLE_HEADING_ENTRY_TIME; ?></td>
-                <td class="dataTableHeadingContent" align="center"><?php echo TABLE_HEADING_LAST_CLICK; ?></td>
-                <td class="dataTableHeadingContent"><?php echo TABLE_HEADING_LAST_PAGE_URL; ?>&nbsp;</td>
-              </tr>
+      <div class="pageHeading col-xs-12">
+        <h1><?php echo HEADING_TITLE; ?></h1>
+      </div>
+      <div class="col-xs-12 col-md-9">
+        <table class="table table-hover table-bordered">
+          <thead>
+            <tr class="dataTableHeadingRow">
+              <th class="dataTableHeadingContent"><?php echo TABLE_HEADING_ONLINE; ?></th>
+              <th class="dataTableHeadingContent" style="text-align: center;"><?php echo TABLE_HEADING_CUSTOMER_ID; ?></th>
+              <th class="dataTableHeadingContent"><?php echo TABLE_HEADING_FULL_NAME; ?></th>
+              <th class="dataTableHeadingContent" style="text-align: center;"><?php echo TABLE_HEADING_IP_ADDRESS; ?></th>
+              <th class="dataTableHeadingContent"><?php echo TABLE_HEADING_ENTRY_TIME; ?></th>
+              <th class="dataTableHeadingContent" style="text-align: center;"><?php echo TABLE_HEADING_LAST_CLICK; ?></th>
+              <th class="dataTableHeadingContent"><?php echo TABLE_HEADING_LAST_PAGE_URL; ?>&nbsp;</th>
+            </tr>
+          </thead>
+          <tbody>
 <?php
   $whos_online_query = tep_db_query("select customer_id, full_name, ip_address, time_entry, time_last_click, last_page_url, session_id from " . TABLE_WHOS_ONLINE);
   while ($whos_online = tep_db_fetch_array($whos_online_query)) {
@@ -54,26 +49,30 @@
     }
 
     if (isset($info) && ($whos_online['session_id'] == $info->session_id)) {
-      echo '              <tr id="defaultSelected" class="dataTableRowSelected" onmouseover="rowOverEffect(this)" onmouseout="rowOutEffect(this)">' . "\n";
+      echo '            <tr id="defaultSelected" class="dataTableRowSelected" onmouseover="rowOverEffect(this)" onmouseout="rowOutEffect(this)">' . "\n";
     } else {
-      echo '              <tr class="dataTableRow" onmouseover="rowOverEffect(this)" onmouseout="rowOutEffect(this)" onclick="document.location.href=\'' . tep_href_link(FILENAME_WHOS_ONLINE, tep_get_all_get_params(array('info', 'action')) . 'info=' . $whos_online['session_id']) . '\'">' . "\n";
+      echo '            <tr class="dataTableRow" onmouseover="rowOverEffect(this)" onmouseout="rowOutEffect(this)" onclick="document.location.href=\'' . tep_href_link(FILENAME_WHOS_ONLINE, tep_get_all_get_params(array('info', 'action')) . 'info=' . $whos_online['session_id']) . '\'">' . "\n";
     }
 ?>
-                <td class="dataTableContent"><?php echo gmdate('H:i:s', $time_online); ?></td>
-                <td class="dataTableContent" align="center"><?php echo $whos_online['customer_id']; ?></td>
-                <td class="dataTableContent"><?php echo $whos_online['full_name']; ?></td>
-                <td class="dataTableContent" align="center"><?php echo $whos_online['ip_address']; ?></td>
-                <td class="dataTableContent"><?php echo date('H:i:s', $whos_online['time_entry']); ?></td>
-                <td class="dataTableContent" align="center"><?php echo date('H:i:s', $whos_online['time_last_click']); ?></td>
-                <td class="dataTableContent"><?php if (preg_match('/^(.*)osCsid=[A-Z0-9,-]+[&]*(.*)/i', $whos_online['last_page_url'], $array)) { echo $array[1] . $array[2]; } else { echo $whos_online['last_page_url']; } ?>&nbsp;</td>
-              </tr>
+              <td class="dataTableContent"><?php echo gmdate('H:i:s', $time_online); ?></td>
+              <td class="dataTableContent" style="text-align: center;"><?php echo $whos_online['customer_id']; ?></td>
+              <td class="dataTableContent"><?php echo $whos_online['full_name']; ?></td>
+              <td class="dataTableContent" style="text-align: center;"><?php echo $whos_online['ip_address']; ?></td>
+              <td class="dataTableContent"><?php echo date('H:i:s', $whos_online['time_entry']); ?></td>
+              <td class="dataTableContent" style="text-align: center;"><?php echo date('H:i:s', $whos_online['time_last_click']); ?></td>
+              <td class="dataTableContent"><?php if (preg_match('/^(.*)osCsid=[A-Z0-9,-]+[&]*(.*)/i', $whos_online['last_page_url'], $array)) { echo $array[1] . $array[2]; } else { echo $whos_online['last_page_url']; } ?>&nbsp;</td>
+            </tr>
 <?php
   }
 ?>
-              <tr>
-                <td class="smallText" colspan="7"><?php echo sprintf(TEXT_NUMBER_OF_CUSTOMERS, tep_db_num_rows($whos_online_query)); ?></td>
-              </tr>
-            </table></td>
+          </tbody>
+        </table>
+        <table class="table" width="100%"> <!-- osCommerce table foot -->
+          <tr>
+            <td class="smallText" colspan="7"><?php echo sprintf(TEXT_NUMBER_OF_CUSTOMERS, tep_db_num_rows($whos_online_query)); ?></td>
+          </tr>
+        </table>
+      </div>
 <?php
   $heading = array();
   $contents = array();
@@ -118,20 +117,12 @@
   }
 
   if ( (tep_not_null($heading)) && (tep_not_null($contents)) ) {
-    echo '            <td width="25%" valign="top">' . "\n";
 
     $box = new box;
     echo $box->infoBox($heading, $contents);
 
-    echo '            </td>' . "\n";
   }
-?>
-          </tr>
-        </table></td>
-      </tr>
-    </table>
 
-<?php
   require(DIR_WS_INCLUDES . 'template_bottom.php');
   require(DIR_WS_INCLUDES . 'application_bottom.php');
 ?>

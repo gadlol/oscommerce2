@@ -190,61 +190,8 @@
                               tep_output_string_protected($sql['Collation']),
                               tep_draw_checkbox_field('id[]', $sql['Name']));
       }
-  }
 
-  require(DIR_WS_INCLUDES . 'template_top.php');
-?>
-
-<?php
-  if ( isset($action) ) {
-    echo '<div style="float: right;">' . tep_draw_button(IMAGE_BACK, 'triangle-1-w', tep_href_link('database_tables.php')) . '</div>';
-  }
-?>
-
-<h1 class="pageHeading"><?php echo HEADING_TITLE; ?></h1>
-
-<?php
-  echo tep_draw_form('sql', 'database_tables.php');
-?>
-
-<table border="0" width="100%" cellspacing="0" cellpadding="2">
-  <tr class="dataTableHeadingRow">
-
-<?php
-  foreach ( $table_headers as $th ) {
-    echo '    <td class="dataTableHeadingContent">' . $th . '</td>' . "\n";
-  }
-?>
-  </tr>
-
-<?php
-  foreach ( $table_data as $td ) {
-    echo '  <tr class="dataTableRow" onmouseover="rowOverEffect(this)" onmouseout="rowOutEffect(this)">' . "\n";
-
-    foreach ( $td as $data ) {
-      echo '    <td class="dataTableContent">' . $data . '</td>' . "\n";
-    }
-
-    echo '  </tr>' . "\n";
-  }
-?>
-
-</table>
-
-<?php
-  if ( !isset($_POST['dryrun']) ) {
-?>
-
-<div class="main" style="text-align: right;">
-  <?php echo '<span class="runUtf8" style="display: none;">' . sprintf(ACTION_UTF8_DRY_RUN, tep_draw_checkbox_field('dryrun')) . '</span>' . tep_draw_pull_down_menu('action', $actions, '', 'id="sqlActionsMenu"') . '<span class="runUtf8" style="display: none;">&nbsp;' . tep_draw_pull_down_menu('from_charset', $mysql_charsets) . '</span>&nbsp;' . tep_draw_button(BUTTON_ACTION_GO); ?>
-</div>
-
-<?php
-  }
-?>
-
-</form>
-
+      $templateModules['footer'][] = <<<EOD
 <script type="text/javascript">
 $(function() {
   if ( $('form[name="sql"] input[type="checkbox"][name="masterblaster"]').length > 0 ) {
@@ -268,6 +215,70 @@ $(function() {
   });
 });
 </script>
+EOD;
+
+  }
+
+  require(DIR_WS_INCLUDES . 'template_top.php');
+?>
+
+<?php
+  if ( isset($action) ) {
+    echo '<div style="float: right;">' . tep_draw_bs_button(IMAGE_BACK, 'triangle-1-w', tep_href_link('database_tables.php')) . '</div>';
+  }
+?>
+
+      <div class="pageHeading col-xs-12">
+        <h1 class="pageHeading"><?php echo HEADING_TITLE; ?></h1>
+      </div>
+
+<?php
+  echo tep_draw_form('sql', 'database_tables.php');
+?>
+
+      <div class="col-xs-12">
+        <table class="table table-hover table-bordered" width="100%">
+          <thead>
+            <tr class="dataTableHeadingRow">
+
+<?php
+  $col =  0;
+  foreach ( $table_headers as $th ) {
+    echo '            <th class="dataTableHeadingContent' . (($col == 1 || $col == 2 || $col== 3) ? ' hidden-xs"' : '"') . '>' . $th . '</th>' . "\n";
+    $col++;
+  }
+?>
+            </tr>
+          </thead>  
+<?php
+  foreach ( $table_data as $td ) {
+    echo '          <tr class="dataTableRow" onmouseover="rowOverEffect(this)" onmouseout="rowOutEffect(this)">' . "\n";
+
+    $col = 0;
+    foreach ( $td as $data ) {
+      echo '            <td class="dataTableContent' . ($col == 0 ? '" style="word-wrap: break-word; min-width: 80px; max-width: 120px;"' : (($col == 1 || $col == 2 || $col== 3) ? ' hidden-xs"' : '"') ) . '>' . $data . '</td>' . "\n";
+      $col++;
+    }
+
+    echo '          </tr>' . "\n";
+  }
+?>
+
+        </table>
+      </div>
+<?php
+  if ( !isset($_POST['dryrun']) ) {
+?>
+
+      <div class="main col-md-2 col-md-offset-10 col-sm-4 col-sm-offset-8 col-xs-12" style="text-align: right;">
+        <?php echo '        <span class="runUtf8" style="display: none;">' . sprintf(ACTION_UTF8_DRY_RUN, tep_draw_checkbox_field('dryrun')) . '</span>' . tep_draw_pull_down_menu('action', $actions, '', 'id="sqlActionsMenu"') . '<span class="runUtf8" style="display: none;">&nbsp;' . tep_draw_pull_down_menu('from_charset', $mysql_charsets) . '</span>&nbsp;' . tep_draw_bs_button(BUTTON_ACTION_GO); ?>
+      </div>
+
+<?php
+  }
+?>
+
+</form>
 
 <?php
   require(DIR_WS_INCLUDES . 'template_bottom.php');

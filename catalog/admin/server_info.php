@@ -87,15 +87,11 @@
   require(DIR_WS_INCLUDES . 'template_top.php');
 ?>
 
-    <table border="0" width="100%" cellspacing="0" cellpadding="2">
-      <tr>
-        <td><table border="0" width="100%" cellspacing="0" cellpadding="0">
-          <tr>
-            <td class="pageHeading"><?php echo HEADING_TITLE; ?></td>
-            <td class="pageHeading" align="right"><?php echo tep_draw_separator('pixel_trans.gif', HEADING_IMAGE_WIDTH, HEADING_IMAGE_HEIGHT); ?></td>
-          </tr>
-        </table></td>
-      </tr>
+      <div class="pageHeading col-xs-12">
+        <h1><?php echo HEADING_TITLE; ?></h1>
+      </div>
+      <div class="col-xs-12">
+        <table class="table">
 <?php
   if ($action == 'export') {
 ?>
@@ -119,7 +115,7 @@
         <td><?php echo tep_draw_separator('pixel_trans.gif', '1', '10'); ?></td>
       </tr>
       <tr>
-          <td align="right" class="smallText"><?php echo tep_draw_button(IMAGE_SEND, 'arrowreturnthick-1-n', tep_href_link(FILENAME_SERVER_INFO, 'action=submit'), 'primary') . tep_draw_button(IMAGE_SAVE, 'disk', tep_href_link(FILENAME_SERVER_INFO, 'action=save'), 'primary');?>
+          <td align="right" class="smallText"><?php echo tep_draw_bs_button(IMAGE_SEND, 'arrowreturnthick-1-n', tep_href_link(FILENAME_SERVER_INFO, 'action=submit'), 'primary') . tep_draw_bs_button(IMAGE_SAVE, 'disk', tep_href_link(FILENAME_SERVER_INFO, 'action=save'), 'primary');?>
       </tr>
   <?php
   } else {
@@ -168,7 +164,7 @@
             <td><?php echo tep_draw_separator('pixel_trans.gif', '1', '10'); ?></td>
           </tr>
           <tr>
-            <td class="smallText"><?php echo tep_draw_button(IMAGE_EXPORT, 'triangle-1-nw', tep_href_link(FILENAME_SERVER_INFO, 'action=export'));?></td>
+            <td class="smallText"><?php echo tep_draw_bs_button(IMAGE_EXPORT, 'triangle-1-nw', tep_href_link(FILENAME_SERVER_INFO, 'action=export'));?></td>
           </tr>
         </table></td>
       </tr>
@@ -211,8 +207,8 @@ hr {display: none;}
 <?php
   }
  ?>
-    </table>
-
+        </table>
+      </div>
 <?php
   require(DIR_WS_INCLUDES . 'template_bottom.php');
   require(DIR_WS_INCLUDES . 'application_bottom.php');

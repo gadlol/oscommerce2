@@ -60,45 +60,40 @@
   require(DIR_WS_INCLUDES . 'template_top.php');
 ?>
 
-    <table border="0" width="100%" cellspacing="0" cellpadding="2">
-      <tr>
-        <td width="100%"><table border="0" width="100%" cellspacing="0" cellpadding="0">
-          <tr>
-            <td class="pageHeading"><?php echo HEADING_TITLE; ?></td>
-            <td class="pageHeading" align="right"><?php echo tep_draw_separator('pixel_trans.gif', HEADING_IMAGE_WIDTH, HEADING_IMAGE_HEIGHT); ?></td>
-          </tr>
-        </table></td>
-      </tr>
-      <tr>
-        <td><table border="0" width="100%" cellspacing="0" cellpadding="0">
-          <tr>
-            <td valign="top"><table border="0" width="100%" cellspacing="0" cellpadding="2">
-              <tr class="dataTableHeadingRow">
-                <td class="dataTableHeadingContent"><?php echo TABLE_HEADING_DIRECTORIES; ?></td>
-                <td class="dataTableHeadingContent" align="center"><?php echo TABLE_HEADING_WRITABLE; ?></td>
-                <td class="dataTableHeadingContent" align="center"><?php echo TABLE_HEADING_RECOMMENDED; ?></td>
-              </tr>
+      <div class="pageHeading col-xs-12">
+        <h1><?php echo HEADING_TITLE; ?></h1>
+      </div>
+      <div class="col-xs-12">
+        <table class="table table-hover table-bordered">
+          <thead>
+            <tr class="dataTableHeadingRow">
+              <th class="dataTableHeadingContent"><?php echo TABLE_HEADING_DIRECTORIES; ?></th>
+              <th class="dataTableHeadingContent" style="text-align: center;"><?php echo TABLE_HEADING_WRITABLE; ?></th>
+              <th class="dataTableHeadingContent" style="text-align: center;"><?php echo TABLE_HEADING_RECOMMENDED; ?></th>
+            </tr>
+          </thead>
+          <tbody>
 <?php
   foreach (tep_opendir(DIR_FS_CATALOG) as $file) {
     if ($file['is_dir']) {
 ?>
-              <tr class="dataTableRow" onmouseover="rowOverEffect(this)" onmouseout="rowOutEffect(this)">
-                <td class="dataTableContent"><?php echo substr($file['name'], strlen(DIR_FS_CATALOG)); ?></td>
-                <td class="dataTableContent" align="center"><?php echo tep_image(DIR_WS_IMAGES . 'icons/' . (($file['writable'] == true) ? 'tick.gif' : 'cross.gif')); ?></td>
-                <td class="dataTableContent" align="center"><?php echo tep_image(DIR_WS_IMAGES . 'icons/' . (in_array(substr($file['name'], strlen(DIR_FS_CATALOG)), $whitelist_array) ? 'tick.gif' : 'cross.gif')); ?></td>
-              </tr>
+            <tr class="dataTableRow" onmouseover="rowOverEffect(this)" onmouseout="rowOutEffect(this)">
+              <td class="dataTableContent"><?php echo substr($file['name'], strlen(DIR_FS_CATALOG)); ?></td>
+              <td class="dataTableContent" style="text-align: center;"><?php echo (($file['writable'] == true) ? tep_glyphicon('ok', '', 'style="color:#13AF25;"') : tep_glyphicon('remove', '', 'style="color:#D41919;"')); ?></td>
+              <td class="dataTableContent" style="text-align: center;"><?php echo (in_array(substr($file['name'], strlen(DIR_FS_CATALOG)), $whitelist_array) ? tep_glyphicon('ok', '', 'style="color:#13AF25;"') : tep_glyphicon('remove', '', 'style="color:#D41919;"')); ?></td>
+            </tr>
 <?php
     }
   }
 ?>
-              <tr>
-                <td colspan="3" class="smallText"><?php echo TEXT_DIRECTORY . ' ' . DIR_FS_CATALOG; ?></td>
-              </tr>
-            </table></td>
+          </tbody>
+        </table>
+        <table class="table" width="100%"> <!-- osCommerce table foot -->
+          <tr>
+            <td class="smallText bg-info"><?php echo TEXT_DIRECTORY . ' ' . DIR_FS_CATALOG; ?></td>
           </tr>
-        </table></td>
-      </tr>
-    </table>
+        </table>
+      </div>
 
 <?php
   require(DIR_WS_INCLUDES . 'template_bottom.php');
