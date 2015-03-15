@@ -90,6 +90,7 @@
   }
 
   function bm_card_acceptance_edit_logos($values, $key) {
+    global $templateModules;
     $files_array = array();
 
     if ( $dir = @dir(DIR_FS_CATALOG . DIR_WS_IMAGES . 'card_acceptance') ) {
@@ -131,7 +132,8 @@
 
     $drag_here_li = '<li id="caLogoEmpty" style="background-color: #fcf8e3; border: 1px #faedd0 solid; color: #a67d57; padding: 5px;">' . addslashes(MODULE_BOXES_CARD_ACCEPTANCE_DRAG_HERE) . '</li>';
 
-    $output .= <<<EOD
+    $templateModules['footer_script'][] = ' <script src="' . tep_catalog_href_link('ext/jquery/ui/jquery-ui-1.10.4.min.js') . '"></script>'; 
+    $templateModules['footer'][] = <<<EOD
 <script>
 $(function() {
   var drag_here_li = '{$drag_here_li}';
